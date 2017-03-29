@@ -1,0 +1,44 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'cityon-api'
+	version = '0.0.1-SNAPSHOT'
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-tomcat")
+	
+    //compile("org.springframework.data:spring-data-commons")
+    //compile("org.springframework.security:spring-security-config");
+	
+	//Aspect
+    compile('org.aspectj:aspectjrt:1.7.3')
+    compile('org.aspectj:aspectjweaver:1.7.3')
+    compile('org.aspectj:aspectjtools:1.7.3')
+    
+	// test
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
