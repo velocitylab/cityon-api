@@ -39,6 +39,13 @@ dependencies {
     compile('org.aspectj:aspectjweaver:1.7.3')
     compile('org.aspectj:aspectjtools:1.7.3')
     
+    //httpclient
+    compile('org.apache.httpcomponents:httpcore:4.4.1')
+	compile('org.apache.httpcomponents:httpclient:4.5')
+	
+	//gson
+	compile('com.google.code.gson:gson:2.3.1')
+	
 	// test
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
