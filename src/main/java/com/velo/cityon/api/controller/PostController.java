@@ -12,5 +12,12 @@ public class PostController {
 	
 	@Autowired
 	private PostService postService;
+	
+
+	@RequestMapping("/hello")
+    public String hello() {
+        return "Hello World!";
+    }
+
 
 }
