@@ -1,5 +1,8 @@
 package com.velo.cityon.api.vo.rest;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
 	private String result = "0000";
 	private String message = "Success";
