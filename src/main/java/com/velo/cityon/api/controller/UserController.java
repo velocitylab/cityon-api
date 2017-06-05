@@ -41,6 +41,17 @@ public class UserController {
 		return resp;
 	}
 	
+
+	@RequestMapping(value="/v2/{userId}", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"} )
+	@ResponseBody
+	public UserResponse getUserId(@PathVariable(required=true) String userId)  throws Exception {
+		
+		UserVO userVo = userService.getUser2(userId);
+		UserResponse resp = new UserResponse();
+		resp.setUser(userVo);
+		return resp;
+	}
+	
 	@RequestMapping(value="/{userId}", method=RequestMethod.DELETE, produces={"application/json; charset=UTF-8"} )
 	@ResponseBody
 	public Response deleteUser(@PathVariable(required=true) String userId)  throws Exception {

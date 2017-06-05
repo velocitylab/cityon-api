@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Document(collection="user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserVO {
-
+	
 	@Id
 	private String id;
 	private String uid;

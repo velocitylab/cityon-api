@@ -11,10 +11,11 @@ public interface UserRepository extends MongoRepository<UserVO, String>{
 
 	@SuppressWarnings("unchecked")
 	UserVO save(UserVO userVo);
+		
+	@Query("{ 'uid' : ?0 }")
+	UserVO findByUid(String uid);
 	
-	@Query("{ 'userId' : ?0 }")
-	UserVO getUser(String uid);
-	
-	@Query("{ 'userId' : ?0 }")
-	void delete(String uid);
+//	@Query("{ 'uid' : ?0 }")
+	void delete(UserVO userVo);
+
 }

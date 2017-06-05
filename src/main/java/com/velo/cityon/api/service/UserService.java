@@ -22,11 +22,18 @@ public class UserService {
 	}
 	
 	public UserVO getUser(String uid){
-		UserVO userVo = userRepository.getUser(uid);
+		UserVO userVo = userRepository.findOne(uid);
 		return userVo;
 	}
 	
+	public UserVO getUser2(String uid){
+		UserVO userVo = userRepository.findByUid(uid);
+		return userVo;
+	}
+	
+	
 	public void deleteUser(String uid){
-		userRepository.delete(uid);
+		UserVO userVo = userRepository.findByUid(uid);
+		userRepository.delete(userVo);
 	}
 }
