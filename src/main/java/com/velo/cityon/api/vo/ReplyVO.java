@@ -3,6 +3,7 @@ package com.velo.cityon.api.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +16,8 @@ public class ReplyVO {
 	@Id
 	private String id;
 	private String writer;
+
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss Z")
 	private Date date;
 	private String contents;
 	private List<ReReplyVO> replies;
