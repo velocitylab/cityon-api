@@ -20,7 +20,7 @@ public class PostVO {
 	private Integer hitCount;
 	private Integer replyCount;
 	private String writer;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss Z")
 	private Date date;
 
 	public String getId() {
