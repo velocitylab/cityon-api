@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.velo.cityon.api.service.GeoService;
-import com.velo.cityon.api.vo.AddressVO;
+import com.velo.cityon.api.vo.CityVO;
 
 @RestController
 @RequestMapping("/v1/geo")
@@ -20,13 +20,14 @@ public class GeoController {
 	private GeoService geoService;
 	
     @RequestMapping(value="/address", method = RequestMethod.GET, produces={"application/json; charset=UTF-8"})
-    public AddressVO openstreet(
+    public CityVO openstreet(
     		@RequestParam(value = "lat", required = true) String lat,
-    		@RequestParam(value = "lng", required = true) String lng, 
+    		@RequestParam(value = "lng", required = true) String lng,
+    		@RequestParam(value = "type", required = false, defaultValue="1") Integer type,
     		HttpServletRequest request, HttpServletResponse response) throws Exception {
     		
-		AddressVO address = geoService.getOpenGeoInformation(lat, lng);
-    	return address;
+		CityVO city = geoService.getOpenGeoInformation(lat, lng, type);
+    	return city;
     }
 
 }

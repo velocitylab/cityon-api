@@ -6,7 +6,7 @@ import com.notnoop.apns.ApnsService;
 public class APNSSender {
 
 
-	private String devCert ="/path/to/cert/cert.p12";
+	private String certPath ="/path/to/cert/cert.p12";
 
 	public void sendApnsChat(String token, String msg, String customMessage) {
 		
@@ -14,7 +14,7 @@ public class APNSSender {
 			//Setup the connection
 			ApnsService service =
 				    APNS.newService()
-				    .withCert(devCert, "cityon2017!")
+				    .withCert(certPath, "password")
 				    .withSandboxDestination()		//dev
 //				    .withProductionDestination()	//prd
 				    .build();

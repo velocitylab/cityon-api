@@ -12,12 +12,13 @@ import com.velo.cityon.api.common.Constants;
 import com.velo.cityon.api.common.Utils;
 import com.velo.cityon.api.httpclient.PoolingConnectionManager;
 import com.velo.cityon.api.vo.AddressVO;
+import com.velo.cityon.api.vo.CityVO;
 import com.velo.cityon.api.vo.GeoVO;
 
 @Service
 public class GeoService {
 	
-	public AddressVO getOpenGeoInformation(String latString, String lngString) throws Exception {
+	public CityVO getOpenGeoInformation(String latString, String lngString, int type) throws Exception {
 		float lat = 0l;
 		float lng = 0l;
 		try {
@@ -31,8 +32,15 @@ public class GeoService {
 		PoolingConnectionManager cm = new PoolingConnectionManager();
 		CloseableHttpClient client = cm.getHttpClient();
 
-		String url = Constants.OpenStreetmapUri;
-		url = url + "&lat=" + Float.toString(lat) + "&lon=" + Float.toString(lng);
+		String url = "";
+		if(type==2){
+			url = Constants.OpenStreetmapUri;
+			url = url + "&lat=" + Float.toString(lat) + "&lon=" + Float.toString(lng);
+
+		}else{
+			url = Constants.GeonamesUri;
+			url = url + "&lat=" + Float.toString(lat) + "&lng=" + Float.toString(lng);
+		}
 		HttpGet request = new HttpGet(url);
 		HttpResponse response = client.execute(request);
 		
@@ -48,8 +56,15 @@ public class GeoService {
 
 		System.out.println("Response Body : " + result.toString());
 		GeoVO geoVo = Utils.fromJson(result.toString(), GeoVO.class);
-		
-		return geoVo.getAddress();
+		CityVO cityVO = new CityVO();
 
+		if(type==2){
+			cityVO.setCountryCode(geoVo.getAddress().getCountry_code());
+			cityVO.setName(geoVo.getAddress().getCity());
+		}else{
+			cityVO.setCountryCode(geoVo.getCountryCode());
+			cityVO.setName(geoVo.getAdminName1());
+		}
+		return cityVO;
 	}
 }
