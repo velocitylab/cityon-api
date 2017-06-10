@@ -33,20 +33,9 @@ public class UserController {
 	
 	@RequestMapping(value="/{userId}", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"} )
 	@ResponseBody
-	public UserResponse getUser(@PathVariable(required=true) String userId)  throws Exception {
-		
-		UserVO userVo = userService.getUser(userId);
-		UserResponse resp = new UserResponse();
-		resp.setUser(userVo);
-		return resp;
-	}
-	
-
-	@RequestMapping(value="/v2/{userId}", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"} )
-	@ResponseBody
 	public UserResponse getUserId(@PathVariable(required=true) String userId)  throws Exception {
 		
-		UserVO userVo = userService.getUser2(userId);
+		UserVO userVo = userService.getUser(userId);
 		UserResponse resp = new UserResponse();
 		resp.setUser(userVo);
 		return resp;
@@ -61,4 +50,25 @@ public class UserController {
 		return resp;
 	}
 
+	@RequestMapping(value="/{userId}/{cityId}", method=RequestMethod.POST, produces={"application/json; charset=UTF-8"} )
+	@ResponseBody
+	public Response addUserCity(@PathVariable(required=true) String userId,
+			@PathVariable(required=true) String cityId)  throws Exception {
+		
+		userService.addUserCity(userId, cityId);
+		Response resp = new Response();
+		return resp;
+	}
+
+	@RequestMapping(value="/{userId}/{cityId}", method=RequestMethod.DELETE, produces={"application/json; charset=UTF-8"} )
+	@ResponseBody
+	public Response removeUserCity(@PathVariable(required=true) String userId,
+			@PathVariable(required=true) String cityId)  throws Exception {
+		
+		userService.removeUserCity(userId, cityId);
+		Response resp = new Response();
+		return resp;
+	}
+
+	
 }

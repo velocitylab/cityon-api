@@ -1,5 +1,8 @@
 package com.velo.cityon.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +24,14 @@ public class UserService {
 		return uid;
 	}
 	
-	public UserVO getUser(String uid){
+	
+	//get user by mongodb oid
+	public UserVO getUserByOid(String uid){
 		UserVO userVo = userRepository.findOne(uid);
 		return userVo;
 	}
 	
-	public UserVO getUser2(String uid){
+	public UserVO getUser(String uid){
 		UserVO userVo = userRepository.findByUid(uid);
 		return userVo;
 	}
@@ -36,4 +41,32 @@ public class UserService {
 		UserVO userVo = userRepository.findByUid(uid);
 		userRepository.delete(userVo);
 	}
+
+	public void addUserCity(String uid, String cityId){
+		UserVO userVo = userRepository.findByUid(uid);
+		
+		List<String> cityList = userVo.getCity();
+		if(cityList==null){
+			cityList = new ArrayList<String>();
+		}
+		
+		if(!cityList.contains(cityId)){
+			cityList.add(cityId);
+		}
+		userVo.setCity(cityList);
+		userRepository.save(userVo);
+	}
+	
+	public void removeUserCity(String uid, String cityId){
+		UserVO userVo = userRepository.findByUid(uid);
+		
+		List<String> cityList = userVo.getCity();
+		if(cityList==null){
+			return;
+		}
+		cityList.remove(cityId);
+		userVo.setCity(cityList);
+		userRepository.save(userVo);
+	}
+	
 }

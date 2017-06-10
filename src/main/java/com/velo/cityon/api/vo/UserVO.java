@@ -1,5 +1,7 @@
 package com.velo.cityon.api.vo;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,6 +23,7 @@ public class UserVO {
 	private String nationality;
 	private String email;
 	private String imageUrl;
+	private List<String> city;
 	
 	public String getId() {
 		return id;
@@ -87,6 +90,12 @@ public class UserVO {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+	public List<String> getCity() {
+		return city;
+	}
+	public void setCity(List<String> city) {
+		this.city = city;
 	}
 	
 }
