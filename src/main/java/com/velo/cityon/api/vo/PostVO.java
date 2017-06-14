@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class PostVO {
 	@Id
 	private String id;
+	private String cityId;
 	private String type;
 	private String title;
 	private Integer likeCount;
@@ -28,6 +29,12 @@ public class PostVO {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getCityId() {
+		return cityId;
+	}
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
 	}
 	public String getType() {
 		return type;
