@@ -18,19 +18,19 @@ public class PostService {
 	private PostRepository postRepository;
 
 	
-	public List<PostVO> getPostList(Integer page, Integer size) throws Exception {
+	public List<PostVO> getPostList(String cityId, Integer page, Integer size) throws Exception {
 		PageRequest pr = new PageRequest(page, size, new Sort(Sort.Direction.DESC, "_id"));
-		return postRepository.findAll(pr).getContent();
+		return postRepository.findByCityId(cityId, pr).getContent();
 	}
 
-	public List<PostVO> getPrevPostList(String id) throws Exception {
+	public List<PostVO> getPrevPostList(String cityId, String id) throws Exception {
 		Sort sort = new Sort(Sort.Direction.DESC, "_id");
-		return postRepository.findPrevPosts(id, sort);
+		return postRepository.findPrevPosts(cityId, id, sort);
 	}
 	
-	public List<PostVO> getNextPostList(String id, Integer size) throws Exception {
+	public List<PostVO> getNextPostList(String cityId, String id, Integer size) throws Exception {
 		PageRequest pr = new PageRequest(0, size, new Sort(Sort.Direction.DESC, "_id"));
-		return postRepository.findNextPosts(id, pr);
+		return postRepository.findNextPosts(cityId, id, pr);
 	}
 	
 	public PostDetailVO getPostDetail(String id) throws Exception {

@@ -23,32 +23,43 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
-	@RequestMapping(value="/_list", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+	@RequestMapping(value="/_new", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"})
 	@ResponseBody
-	public PostsResponse getPostList(
-			@RequestParam(value="page", required=false, defaultValue="0") Integer page,
-			@RequestParam(value="size", required=false, defaultValue="10") Integer size,
-			@RequestParam(value="first", required=false) String first,
-			@RequestParam(value="last", required=false) String last) throws Exception {
+	public PostsResponse getNewPosts(
+			@RequestParam(value="cityId", required=true) String cityId,
+			@RequestParam(value="size", required=false, defaultValue="10") Integer size) throws Exception {
 		
-		List<PostVO> newPosts = null;
-		List<PostVO> posts = null;
+		List<PostVO> posts = postService.getPostList(cityId, 0, size);
+
+		PostsResponse resp = new PostsResponse();
+		resp.setPosts(posts);
+		return resp;
+	}
+
+	@RequestMapping(value="/_more", method=RequestMethod.GET, produces={"application/json; charset=UTF-8"})
+	@ResponseBody
+	public PostsResponse getMorePosts(
+			@RequestParam(value="cityId", required=true) String cityId,
+			@RequestParam(value="first", required=false) String first,
+			@RequestParam(value="last", required=false) String last,
+			@RequestParam(value="size", required=false, defaultValue="10") Integer size) throws Exception {
+		
+		List<PostVO> prevPosts = null;
+		List<PostVO> nextPosts = null;
 		
 		if(first == null && last == null) {
-			posts = postService.getPostList(page, size);
+			throw new Exception("require first or last");
 		}
-		else {
-			if(first != null) {
-				newPosts = postService.getPrevPostList(first);
-			}
-			if(last != null) {
-				posts = postService.getNextPostList(last, size);
-			}
+		if(first != null) {
+			prevPosts = postService.getPrevPostList(cityId, first);
+		}
+		if(last != null) {
+			nextPosts = postService.getNextPostList(cityId, last, size);
 		}
 
 		PostsResponse resp = new PostsResponse();
-		resp.setNewPosts(newPosts);
-		resp.setPosts(posts);
+		resp.setPrevPosts(prevPosts);
+		resp.setNextPosts(nextPosts);
 		return resp;
 	}
 
